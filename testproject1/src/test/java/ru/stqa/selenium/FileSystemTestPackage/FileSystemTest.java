@@ -1,6 +1,5 @@
-package ru.stqa.selenium.Task3Tests;
+package ru.stqa.selenium.FileSystemTestPackage;
 
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
@@ -18,7 +17,7 @@ public class FileSystemTest extends FilesystemBaseFixture {
     private void clearTempFile() throws IOException {
         System.out.println("@AfterMethod clearTempFile");
         bool = Files.deleteIfExists(tempFile);
-        Assert.assertTrue(bool, "File didn't deleted!");
+        sftA.assertTrue(bool, "File didn't deleted!");
         tempFile = null;
     }
 
@@ -26,9 +25,9 @@ public class FileSystemTest extends FilesystemBaseFixture {
     public void _1_Positive_Test() throws IOException {
 
         tempFile = Files.createTempFile(tempDirectory,"", "");
-        Assert.assertTrue(Files.isWritable(tempFile), "It's not a writable file!");
-        System.out.println("Temporary file created successfully! - " + tempFile.toString());
+        sftA.assertTrue(Files.isWritable(tempFile), "_1_Positive_Test: It's not a writable file!");
 
+        System.out.println("Temporary file should be created successfully! - " + tempFile.toString());
         System.out.println("_1_Positive_Test - finished");
 
     }
@@ -37,9 +36,9 @@ public class FileSystemTest extends FilesystemBaseFixture {
     public void _2_Positive_Test() throws IOException {
 
         tempFile = Files.createTempFile(tempDirectory,"", "");
-        Assert.assertTrue(Files.isReadable(tempFile), "It's not readable!");
-        System.out.println("Temporary file created successfully! - " + tempFile.toString());
+        sftA.assertTrue(Files.isReadable(tempFile), "_2_Positive_Test: It's not readable!");
 
+        System.out.println("Temporary file should be created successfully! - " + tempFile.toString());
         System.out.println("_2_Positive_Test - finished");
     }
 
@@ -48,7 +47,7 @@ public class FileSystemTest extends FilesystemBaseFixture {
 
         tempFile = Files.createTempFile(tempDirectory,"", "");
 
-        Assert.assertFalse(Files.isDirectory(tempFile, LinkOption.NOFOLLOW_LINKS), "It's not a file. It's a directory!");
+        sftA.assertTrue(Files.isDirectory(tempFile, LinkOption.NOFOLLOW_LINKS), "_1_Negative_Test: It's not a file. It's a directory!");
 
         System.out.println("_1_Negative_Test - finished");
     }

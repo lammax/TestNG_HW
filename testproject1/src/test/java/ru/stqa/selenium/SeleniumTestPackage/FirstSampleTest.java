@@ -1,4 +1,4 @@
-package ru.stqa.selenium;
+package ru.stqa.selenium.SeleniumTestPackage;
 
 import org.testng.annotations.Test;
 

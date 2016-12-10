@@ -1,4 +1,4 @@
-package ru.stqa.selenium;
+package ru.stqa.selenium.SeleniumTestPackage;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -26,7 +26,7 @@ public class BrowserBaseFixture {
         tlDriver.set(driver);
         wait = new WebDriverWait(driver, 10);
 
-        Runtime.getRuntime().addShutdownHook(
+        /*Runtime.getRuntime().addShutdownHook(
                 new Thread(new Runnable() {
                         @Override
                         public void run() {
@@ -35,7 +35,7 @@ public class BrowserBaseFixture {
                         }
                     }
                 )
-        );
+        );*/
     }
 
     @AfterClass

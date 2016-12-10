@@ -12,7 +12,7 @@
       </dependencies>
     </groups>
     <packages>
-      <package name="ru.stqa.selenium.Task3Tests.*"/>
+      <package name="ru.stqa.selenium.FileSystemTestPackage.*"/>
     </packages>
   </test>  
 </suite>
