@@ -6,13 +6,15 @@
       <run>
         <include name="positive"></include>
         <include name="negative"></include>
+        <include name="selenium"></include>
+        <exclude name="filesystem"></exclude>
       </run>
       <dependencies>
         <group name="negative" depends-on="positive"></group>
       </dependencies>
     </groups>
     <packages>
-      <package name="ru.stqa.selenium.FileSystemTestPackage.*"/>
+      <package name="ru.stqa.selenium.SeleniumTestPackage"/>
     </packages>
   </test>  
 </suite>
