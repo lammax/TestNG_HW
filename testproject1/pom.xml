@@ -10,7 +10,7 @@
     <dependency>
       <groupId>org.testng</groupId>
       <artifactId>testng</artifactId>
-      <version>6.8.8</version>
+      <version>6.8.1</version>
     </dependency>
     <dependency>
       <groupId>ru.stqa.selenium</groupId>
@@ -48,41 +48,9 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>ru.stqa.selenium</groupId>
-      <artifactId>webdriver-factory</artifactId>
-      <version>1.0</version>
-    </dependency>
-      <dependency>
-          <groupId>org.testng</groupId>
-          <artifactId>testng</artifactId>
-          <version>6.8.1</version>
-      </dependency>
-    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>RELEASE</version>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-    </dependency>
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>6.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.testng</groupId>
-      <artifactId>testng</artifactId>
-      <version>6.8.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
     </dependency>
   </dependencies>
   <build>
@@ -111,12 +79,12 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.17</version>
         <configuration>
-          <includes>
+          <!--<includes>
             <include>**/*Test.java</include>
-          </includes>
-          <!-- <suiteXmlFiles>
+          </includes>-->
+          <suiteXmlFiles>
             <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-          </suiteXmlFiles> -->
+          </suiteXmlFiles>
           <systemPropertyVariables>
             <application.properties>/application.properties</application.properties>
           </systemPropertyVariables>

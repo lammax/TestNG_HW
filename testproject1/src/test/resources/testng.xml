@@ -2,8 +2,17 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Tests" verbose="5">
   <test name="Test1">
-    <classes>
-      <class name="ru.stqa.selenium.SampleTestNgTest_old"/>
-    </classes>
+    <groups>
+      <run>
+        <include name="positive"></include>
+        <include name="negative"></include>
+      </run>
+      <dependencies>
+        <group name="negative" depends-on="positive"></group>
+      </dependencies>
+    </groups>
+    <packages>
+      <package name="ru.stqa.selenium.Task3Tests.*"/>
+    </packages>
   </test>  
 </suite>

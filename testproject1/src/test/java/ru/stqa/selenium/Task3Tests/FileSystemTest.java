@@ -1,4 +1,4 @@
-package ru.stqa.selenium;
+package ru.stqa.selenium.Task3Tests;
 
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -9,13 +9,12 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 
-@Test
 public class FileSystemTest extends FilesystemBaseFixture {
 
     private Boolean bool = false;
     Path tempFile = null;
 
-    @AfterMethod
+    @AfterMethod(groups = {"positive", "negative"})
     private void clearTempFile() throws IOException {
         System.out.println("@AfterMethod clearTempFile");
         bool = Files.deleteIfExists(tempFile);
@@ -23,6 +22,7 @@ public class FileSystemTest extends FilesystemBaseFixture {
         tempFile = null;
     }
 
+    @Test(groups = "positive")
     public void _1_Positive_Test() throws IOException {
 
         tempFile = Files.createTempFile(tempDirectory,"", "");
@@ -33,6 +33,7 @@ public class FileSystemTest extends FilesystemBaseFixture {
 
     }
 
+    @Test(groups = "positive")
     public void _2_Positive_Test() throws IOException {
 
         tempFile = Files.createTempFile(tempDirectory,"", "");
@@ -42,6 +43,7 @@ public class FileSystemTest extends FilesystemBaseFixture {
         System.out.println("_2_Positive_Test - finished");
     }
 
+    @Test(groups = "negative")
     public void _1_Negative_Test() throws IOException {
 
         tempFile = Files.createTempFile(tempDirectory,"", "");
