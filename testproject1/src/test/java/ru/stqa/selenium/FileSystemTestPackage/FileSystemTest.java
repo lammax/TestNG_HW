@@ -47,7 +47,7 @@ public class FileSystemTest extends FilesystemBaseFixture {
 
         tempFile = Files.createTempFile(tempDirectory,"", "");
 
-        sftA.assertTrue(Files.isDirectory(tempFile, LinkOption.NOFOLLOW_LINKS), "_1_Negative_Test: It's not a file. It's a directory!");
+        sftA.assertFalse(Files.isDirectory(tempFile, LinkOption.NOFOLLOW_LINKS), "_1_Negative_Test: It's not a file. It's a directory!");
 
         System.out.println("_1_Negative_Test - finished");
     }

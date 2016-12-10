@@ -35,7 +35,7 @@ public class FilesystemBaseFixture {
         System.out.println("@AfterClass baseFSTeardown");
 
         Boolean isDirectoryDeleted = Files.deleteIfExists(tempDirectory);
-        sftA.assertFalse(isDirectoryDeleted, "Temp directory was not deleted.");
+        sftA.assertTrue(isDirectoryDeleted, "Temp directory was not deleted.");
 
         sftA.assertAll();
         sftA = null;
