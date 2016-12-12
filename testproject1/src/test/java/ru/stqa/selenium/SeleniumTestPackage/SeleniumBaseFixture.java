@@ -8,9 +8,9 @@ import org.testng.annotations.*;
 @Test
 public class SeleniumBaseFixture {
 
-    public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
-    public WebDriver driver = null;
-    public WebDriverWait wait = null;
+    protected static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
+    protected static WebDriver driver = null;
+    protected static WebDriverWait wait = null;
 
     @BeforeSuite(groups = "selenium")
     public void baseSetup() {

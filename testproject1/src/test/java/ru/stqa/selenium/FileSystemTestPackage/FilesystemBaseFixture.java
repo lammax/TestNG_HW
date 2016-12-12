@@ -3,6 +3,7 @@ package ru.stqa.selenium.FileSystemTestPackage;
 import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import org.testng.asserts.SoftAssert;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,15 +13,25 @@ import java.nio.file.Paths;
 
 public class FilesystemBaseFixture {
 
-    public Path tempDirectory = null;
+    protected static Path tempDirectory = null;
+    protected static SoftAssert sftA = null;
+
 
     @BeforeSuite(groups = {"positive", "negative", "filesystem"})
     public void baseFSSetup() throws IOException{
 
         System.out.println("@BeforeClass baseFSSetup");
 
+        sftA = new SoftAssert();
+
         Path rootDirectory = Paths.get(".\\TempDir");
-        tempDirectory = Files.createDirectory(rootDirectory);
+        Boolean directoryNotExists = Files.notExists(rootDirectory);
+
+        if (directoryNotExists) {
+            tempDirectory = Files.createDirectory(rootDirectory);
+        } else {
+            tempDirectory = rootDirectory;
+        }
 
     }
 
@@ -30,9 +41,13 @@ public class FilesystemBaseFixture {
         System.out.println("@AfterClass baseFSTeardown");
 
         Boolean isDirectoryDeleted = Files.deleteIfExists(tempDirectory);
-        Assert.assertTrue(isDirectoryDeleted, "Temp directory was not deleted.");
+        sftA.assertTrue(isDirectoryDeleted, "Temp directory was not deleted.");
 
         tempDirectory = null;
+
+        sftA.assertAll();
+        sftA = null;
+
     }
 
 }

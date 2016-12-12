@@ -1,6 +1,7 @@
 package ru.stqa.selenium.SeleniumTestPackage;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 
 public class SeleniumTest extends SeleniumBaseFixture {
@@ -45,6 +46,20 @@ public class SeleniumTest extends SeleniumBaseFixture {
 
     }
 
+    @Test(groups = {"positive", "selenium"})
+    public void _3_Positive_Test() {
+
+        System.out.println("SeleniumTest -> positive test3 running");
+
+        SeleniumAssertion check = new SeleniumAssertion(driver);
+
+        By firstJSNewsSelector = By.cssSelector("div.daynews.js-topnews a:nth-child(1)");
+        WebElement firstJSNews = driver.findElements(firstJSNewsSelector).get(0);
+        check.assertDisplayed(firstJSNews);
+        firstJSNews.click();
+
+    }
+
     @Test(groups = {"negative", "selenuim"})
     public void _1_Negative_Test() {
 
@@ -52,8 +67,31 @@ public class SeleniumTest extends SeleniumBaseFixture {
 
         SeleniumAssertion check = new SeleniumAssertion(driver);
 
-        By somethingWrongSelector = By.cssSelector("div#wrong");
-        check.assertElementAbsence(somethingWrongSelector);
+        By somethingWrongSelector = By.cssSelector("div#wrong1");
+        check.assertPresentElementLocated(somethingWrongSelector);
+
+    }
+
+    @Test(groups = {"negative", "selenuim"})
+    public void _2_Negative_Test() {
+
+        System.out.println("SeleniumTest -> negative test2 running");
+
+        SeleniumAssertion check = new SeleniumAssertion(driver);
+
+        By somethingWrongSelector = By.cssSelector("div#wrong2");
+        check.assertPresentElementLocated(somethingWrongSelector);
+
+    }
+    @Test(groups = {"negative", "selenuim"})
+    public void _3_Negative_Test() {
+
+        System.out.println("SeleniumTest -> negative test3 running");
+
+        SeleniumAssertion check = new SeleniumAssertion(driver);
+
+        By somethingWrongSelector = By.cssSelector("div#wrong3");
+        check.assertPresentElementLocated(somethingWrongSelector);
 
     }
 

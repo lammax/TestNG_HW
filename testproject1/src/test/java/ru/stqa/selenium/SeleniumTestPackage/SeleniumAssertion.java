@@ -52,15 +52,6 @@ public class SeleniumAssertion extends Assertion{
         });
     }
 
-    public void assertElementAbsence(final By locator) {
-        doAssert(new SeleniumAssert("there is an element located by " + locator + " thought it shouldn't be there!") {
-            @Override
-            public void doAssert() {
-                assertFalse(driver.findElements(locator).size() > 0, getMessage());
-            }
-        });
-    }
-
     public void assertDisplayed(final WebElement element) {
         doAssert(new SeleniumAssert("Element " + element + " is not displayed.") {
             @Override
