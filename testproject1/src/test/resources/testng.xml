@@ -7,6 +7,7 @@
         <include name="positive"></include>
         <include name="negative"></include>
         <exclude name="selenium"></exclude>
+        <include name="dataprovider" ></include>
         <include name="filesystem"></include>
       </run>
       <dependencies>

@@ -16,8 +16,8 @@ public class FilesystemBaseFixture {
     protected static Path tempDirectory = null;
     protected static SoftAssert sftA = null;
 
-
-    @BeforeSuite(groups = {"positive", "negative", "filesystem"})
+//    groups = {"positive", "negative", "filesystem", "dataprovider"}
+    @BeforeSuite(alwaysRun = true)
     public void baseFSSetup() throws IOException{
 
         System.out.println("@BeforeClass baseFSSetup");
@@ -35,7 +35,8 @@ public class FilesystemBaseFixture {
 
     }
 
-    @AfterSuite(groups = {"positive", "negative", "filesystem"})
+//    groups = {"positive", "negative", "filesystem", "dataprovider"}
+    @AfterSuite(alwaysRun = true)
     public void baseFSTeardown() throws IOException {
 
         System.out.println("@AfterClass baseFSTeardown");

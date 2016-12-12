@@ -4,10 +4,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.InvalidPathException;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
+import java.nio.file.*;
+
+import ru.stqa.selenium.BaseFeatures.DataProviders;
 
 public class FileSystemTest extends FilesystemBaseFixture {
 
@@ -22,17 +21,17 @@ public class FileSystemTest extends FilesystemBaseFixture {
             doNotDeleteFile = false;
             bool = false;
         } else {
+            Thread.sleep(1 * 1000);
             bool = Files.deleteIfExists(tempFile);
         }
         sftA.assertTrue(bool, "File didn't deleted!");
         tempFile = null;
-        Thread.sleep(2 * 1000);
     }
 
     @Test(groups = {"positive", "filesystem"})
     public void _1_Positive_Test() throws IOException {
 
-        tempFile = Files.createTempFile(tempDirectory,"", "");
+        tempFile = Files.createTempFile(tempDirectory,"tempFile", ".txt");
         sftA.assertTrue(Files.isWritable(tempFile), "_1_Positive_Test: It's not a writable file!");
 
         System.out.println("Temporary file should be created successfully! - " + tempFile.toString());
@@ -43,7 +42,7 @@ public class FileSystemTest extends FilesystemBaseFixture {
     @Test(groups = {"positive", "filesystem"})
     public void _2_Positive_Test() throws IOException {
 
-        tempFile = Files.createTempFile(tempDirectory,"", "");
+        tempFile = Files.createTempFile(tempDirectory,"tempFile", ".txt");
         sftA.assertTrue(Files.isReadable(tempFile), "_2_Positive_Test: It's not readable!");
 
         System.out.println("Temporary file should be created successfully! - " + tempFile.toString());
@@ -53,7 +52,6 @@ public class FileSystemTest extends FilesystemBaseFixture {
     @Test(groups = {"positive", "filesystem"})
     public void _3_Positive_Test() throws IOException {
 
-
         Path fullFilePath = tempDirectory.resolve("testPositive2.txt");
         tempFile =  Files.createFile(fullFilePath);
         sftA.assertFalse(Files.notExists(tempFile), "_3_Positive_Test: File not exists!");
@@ -62,7 +60,31 @@ public class FileSystemTest extends FilesystemBaseFixture {
         System.out.println("_3_Positive_Test - finished");
     }
 
-/*
+    @Test(groups = {"positive", "filesystem", "dataprovider"}, dataProviderClass = DataProviders.class, dataProvider = "fileNames")
+    public void _4_Positive_Test_Data_provider(String fileName) throws IOException {
+
+        Path fullFilePath = tempDirectory.resolve(fileName);
+        tempFile =  Files.createFile(fullFilePath);
+        sftA.assertFalse(Files.notExists(tempFile), "_4_Positive_Test: File not exists!");
+
+        System.out.println("Temporary file should be created successfully! - " + tempFile.toString());
+        System.out.println("_4_Positive_Test for file -'" + fileName + "'- finished");
+
+    }
+
+    @Test(groups = {"positive", "filesystem", "dataprovider"}, dataProviderClass = DataProviders.class, dataProvider = "loadFileNames")
+    public void _5_Positive_Test_Data_provider(String fileName) throws IOException {
+
+        Path fullFilePath = tempDirectory.resolve(fileName);
+        tempFile =  Files.createFile(fullFilePath);
+        sftA.assertFalse(Files.notExists(tempFile), "_5_Positive_Test: File not exists!");
+
+        System.out.println("Temporary file should be created successfully! - " + tempFile.toString());
+        System.out.println("_5_Positive_Test for file -'" + fileName + "'- finished");
+
+    }
+
+    /*
     Хорошо, но негативных тестов маловато, один, да и тот не очень негативный.
     Предлагаю добавить тесты для ситуаций, когда файл не создаётся, потому что имя содержит недопустимые символы,
     а также файл не создаётся, потому что уже существует.
@@ -75,7 +97,6 @@ public class FileSystemTest extends FilesystemBaseFixture {
         doNotDeleteFile = true;
 
         Boolean isPathDirectory = Files.isDirectory(tempFile, LinkOption.NOFOLLOW_LINKS);
-        System.out.println(isPathDirectory);
 
         sftA.assertTrue(isPathDirectory, "_1_Negative_Test: It's not a directory. It's a file!");
 
@@ -94,7 +115,10 @@ public class FileSystemTest extends FilesystemBaseFixture {
             fullFilePath = tempDirectory.resolve("testWrongFilename" + anyWrongCharacter + ".txt");
             tempFile =  Files.createFile(fullFilePath);
         } catch(InvalidPathException ex) {
-            sftA.assertTrue(false, "_2_Negative_Test: Invalid path!");
+            sftA.assertTrue(false, "_2_Negative_Test: " + ex);
+            doNotDeleteFile = true;
+        } catch (NoSuchFileException ex2) {
+            sftA.assertTrue(false, "_2_Negative_Test: " + ex2);
             doNotDeleteFile = true;
         }
 
