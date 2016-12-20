@@ -9,5 +9,6 @@ public interface MyJUnitCategories {
     public interface NegativeTests {}
 
     public interface BrokenTests {}
+    public interface DataProviderTests {}
 
 }

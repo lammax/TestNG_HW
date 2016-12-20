@@ -8,7 +8,7 @@ import static org.junit.runners.Suite.*;
 import ru.stqa.selenium.BaseFeatures.MyJUnitCategories;
 
 @RunWith(Categories.class)
-@IncludeCategory({ MyJUnitCategories.FilesystemTests.class })
+@IncludeCategory({ MyJUnitCategories.DataProviderTests.class })
 @SuiteClasses({ FileSystemTest.class })
 
 public class FilesystemCategorizedTestSuite {

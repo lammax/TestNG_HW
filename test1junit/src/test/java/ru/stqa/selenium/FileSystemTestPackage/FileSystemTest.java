@@ -6,13 +6,16 @@ import org.junit.After;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
-import ru.stqa.selenium.BaseFeatures.DataProviders;
+import ru.stqa.selenium.BaseFeatures.DataSource;
 import ru.stqa.selenium.BaseFeatures.MyJUnitCategories;
+import ru.stqa.selenium.BaseFeatures.UniversalDataProvider;
 
 import java.io.IOException;
 import java.nio.file.*;
 
 import static java.nio.file.Files.*;
+import static ru.stqa.selenium.BaseFeatures.DataSource.Type.AUTO;
+import static ru.stqa.selenium.BaseFeatures.DataSource.Type.FILE;
 
 @RunWith(DataProviderRunner.class)
 public class FileSystemTest extends FilesystemBaseFixture implements MyJUnitCategories {
@@ -70,9 +73,11 @@ public class FileSystemTest extends FilesystemBaseFixture implements MyJUnitCate
         System.out.println("_3_Positive_Test - finished");
     }
 
+
     @Test
-    @UseDataProvider(value = "fileNames", location = DataProviders.class)
-    @Category({ PositiveTests.class, FilesystemTests.class })
+    @UseDataProvider(value = "dataSourceLoader", location = UniversalDataProvider.class)
+    @DataSource(type = AUTO)
+    @Category({ PositiveTests.class, FilesystemTests.class, DataProviderTests.class })
     public void _4_Positive_Test_Data_provider(String fileName) throws IOException {
 
         Path fullFilePath = tempDirectory.resolve(fileName);
@@ -85,8 +90,9 @@ public class FileSystemTest extends FilesystemBaseFixture implements MyJUnitCate
     }
 
     @Test
-    @UseDataProvider(value = "loadFileNames", location = DataProviders.class)
-    @Category({ PositiveTests.class, FilesystemTests.class })
+    @UseDataProvider(value = "dataSourceLoader", location = UniversalDataProvider.class)
+    @DataSource(value = "/Data/dataFileNames.txt", type = FILE)
+    @Category({ PositiveTests.class, FilesystemTests.class, DataProviderTests.class })
     public void _5_Positive_Test_Data_provider(String fileName) throws IOException {
 
         Path fullFilePath = tempDirectory.resolve(fileName);
