@@ -1,18 +1,39 @@
 package ru.stqa.selenium.SeleniumTestPackage;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import ru.stqa.selenium.BaseFeatures.MyJUnitCategories;
+import ru.stqa.selenium.BaseFeatures.Unstable;
 
 public class SeleniumTest extends SeleniumBaseFixture implements MyJUnitCategories {
+
+    private static int attempt = 1;
 
     @After
     public void methodTearDown() throws InterruptedException {
         System.out.println("@After method wait 3 sec");
         Thread.sleep(3 * 1000);
+    }
+
+    @Test
+    @Unstable(3)
+    @Category({SeleniumTests.class, BrokenTests.class})
+    public void _1_Broken_Test() {
+
+        System.out.println("Run: _1_Broken_Test");
+
+        if (attempt == 2) {
+            attempt = 1;
+        } else {
+            Assert.fail("Failed on " + (attempt++) + " attempt");
+        }
+
+        System.out.println("Finished: _1_Broken_Test");
+
     }
 
     @Test

@@ -8,7 +8,7 @@ import static org.junit.runners.Suite.*;
 import ru.stqa.selenium.BaseFeatures.MyJUnitCategories;
 
 @RunWith(Categories.class)
-@IncludeCategory({ MyJUnitCategories.PositiveTests.class, MyJUnitCategories.NegativeTests.class })
+@IncludeCategory({ MyJUnitCategories.BrokenTests.class })
 @SuiteClasses({ SeleniumTest.class })
 
 public class SeleniumCategorizedTestSuite {

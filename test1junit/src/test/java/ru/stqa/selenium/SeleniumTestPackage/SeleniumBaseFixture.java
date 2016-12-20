@@ -1,34 +1,36 @@
 package ru.stqa.selenium.SeleniumTestPackage;
 
 import org.junit.ClassRule;
+import org.junit.Rule;
 import org.junit.rules.ExternalResource;
 import org.junit.rules.RuleChain;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import ru.stqa.selenium.BaseFeatures.UnstableDriverRule;
+import ru.stqa.selenium.BaseFeatures.WebDriverRule;
 
 public class SeleniumBaseFixture {
 
-    protected static WebDriver driver = null;
     protected static WebDriverWait wait = null;
 
-    public static ExternalResource driverRule = new ExternalResource() {
+    public static WebDriverRule driver = new WebDriverRule(DesiredCapabilities.chrome());
+
+    public static ExternalResource waitRule = new ExternalResource() {
+
         @Override
         protected void before() throws Throwable {
-            System.out.println("Starting Chrome browser");
-            driver = new ChromeDriver();
+            System.out.println("Making WebDriverWait");
             wait = new WebDriverWait(driver, 10);
         }
 
         @Override
         protected void after() {
-            System.out.println("Stopping Chrome browser");
-            if (driver != null) {
-                driver.quit();
-                driver = null;
+            System.out.println("Deleting WebDriverWait");
+            if (wait != null) {
                 wait = null;
             }
         }
+
     };
 
     public static ExternalResource openPageRule = new ExternalResource() {
@@ -39,9 +41,15 @@ public class SeleniumBaseFixture {
         }
     };
 
+    @Rule
+    public UnstableDriverRule unstableDriverRule = new UnstableDriverRule(driver);
+
+
     @ClassRule
     public static RuleChain rules = RuleChain
-            .outerRule(driverRule)
+            .outerRule(driver)
+            .around(waitRule)
             .around(openPageRule);
+
 
 }
