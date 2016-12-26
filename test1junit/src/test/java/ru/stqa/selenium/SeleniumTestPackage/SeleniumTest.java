@@ -20,13 +20,13 @@ public class SeleniumTest extends SeleniumBaseFixture implements MyJUnitCategori
     }
 
     @Test
-    @Unstable(3)
+    @Unstable(2)
     @Category({SeleniumTests.class, BrokenTests.class})
     public void _1_Broken_Test() {
 
         System.out.println("Run: _1_Broken_Test");
 
-        if (attempt == 2) {
+        if (attempt == 3) {
             attempt = 1;
         } else {
             Assert.fail("Failed on " + (attempt++) + " attempt");

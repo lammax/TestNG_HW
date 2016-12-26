@@ -40,14 +40,15 @@ public class UnstableDriverRule implements TestRule {
                 boolean success = false;
 
                 while(!success && repCounter < nreps) {
+                    ++repCounter;
                     try {
-                        ++repCounter;
                         success = true;
                         base.evaluate();
                         System.out.println("Test success");
                     } catch (Throwable ex) {
                         System.out.println("Test failed");
                         success = false;
+                        if (repCounter >= nreps) throw ex;
                     }
                 }
 
