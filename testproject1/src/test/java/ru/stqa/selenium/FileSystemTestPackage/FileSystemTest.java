@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.nio.file.*;
 
 import ru.stqa.selenium.BaseFeatures.DataProviders;
+import ru.stqa.selenium.BaseFeatures.DataSource;
+import ru.stqa.selenium.BaseFeatures.UniversalDataProvider;
+
+import static ru.stqa.selenium.BaseFeatures.DataSource.Type.AUTO;
+import static ru.stqa.selenium.BaseFeatures.DataSource.Type.EXCEL;
+import static ru.stqa.selenium.BaseFeatures.DataSource.Type.FILE;
 
 public class FileSystemTest extends FilesystemBaseFixture {
 
@@ -60,8 +66,11 @@ public class FileSystemTest extends FilesystemBaseFixture {
         System.out.println("_3_Positive_Test - finished");
     }
 
-    @Test(groups = {"positive", "filesystem", "dataprovider"}, dataProviderClass = DataProviders.class, dataProvider = "fileNames")
+    @Test(groups = {"positive", "filesystem", "dataprovider"}, dataProviderClass = UniversalDataProvider.class, dataProvider = "dataSourceLoader")
+    @DataSource(value = "/Data/dataEXLFileNames.xlsx", type = EXCEL)
     public void _4_Positive_Test_Data_provider(String fileName) throws IOException {
+
+        System.out.println(">>> " + fileName);
 
         Path fullFilePath = tempDirectory.resolve(fileName);
         tempFile =  Files.createFile(fullFilePath);
@@ -72,7 +81,8 @@ public class FileSystemTest extends FilesystemBaseFixture {
 
     }
 
-    @Test(groups = {"positive", "filesystem", "dataprovider"}, dataProviderClass = DataProviders.class, dataProvider = "loadFileNames")
+    @Test(groups = {"positive", "filesystem", "dataprovider"}, dataProviderClass = UniversalDataProvider.class, dataProvider = "dataSourceLoader")
+    @DataSource(type = AUTO)
     public void _5_Positive_Test_Data_provider(String fileName) throws IOException {
 
         Path fullFilePath = tempDirectory.resolve(fileName);

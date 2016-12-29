@@ -1,6 +1,9 @@
 package ru.stqa.selenium.FileSystemTestPackage;
 
-import org.testng.Assert;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testcontainers.containers.Container;
+import org.testcontainers.containers.GenericContainer;
+
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.asserts.SoftAssert;
@@ -16,11 +19,20 @@ public class FilesystemBaseFixture {
     protected static Path tempDirectory = null;
     protected static SoftAssert sftA = null;
 
+
+//    protected static GenericContainer redis = new GenericContainer();
+
+//    protected static Container.ExecResult res = null;
+
 //    groups = {"positive", "negative", "filesystem", "dataprovider"}
     @BeforeSuite(alwaysRun = true)
-    public void baseFSSetup() throws IOException{
+    public void baseFSSetup() throws IOException, InterruptedException {
 
         System.out.println("@BeforeClass baseFSSetup");
+
+//        res = container.execInContainer("lsb_release -a");
+
+//        System.out.println(res.getStdout());
 
         sftA = new SoftAssert();
 
@@ -44,7 +56,11 @@ public class FilesystemBaseFixture {
         Boolean isDirectoryDeleted = Files.deleteIfExists(tempDirectory);
         sftA.assertTrue(isDirectoryDeleted, "Temp directory was not deleted.");
 
+
+
         tempDirectory = null;
+
+//        container = null;
 
         sftA.assertAll();
         sftA = null;
